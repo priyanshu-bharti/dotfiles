@@ -4,7 +4,7 @@ set options \
     style=round \
     width=6.0 \
     hidpi=off \
-    active_color="glow(0xFFFFC76E)" \
+    active_color="glow(0xFFFF7380)" \
     inactive_color=0xff414550
 
 borders $options

@@ -20,7 +20,7 @@ config.font = wezterm.font("CaskaydiaCove Nerd Font")
 config.line_height = 1.25
 config.window_padding = {
 	top = 3,
-	right = 3, 
+	right = 3,
 	bottom = 3,
 	left = 3,
 }

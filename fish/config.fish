@@ -3,5 +3,9 @@ if status is-interactive
 end
 
 zoxide init fish | source
+
 proto activate fish | source
+
 starship init fish | source
+
+fzf --fish | source
