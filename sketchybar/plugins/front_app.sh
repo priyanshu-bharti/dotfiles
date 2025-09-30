@@ -1,10 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
-# Some events send additional information specific to the event in the $INFO
-# variable. E.g. the front_app_switched event sends the name of the newly
-# focused application in the $INFO variable:
-# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
+# Always fetch the current workspace and app name from aerospace
+WORKSPACE=$(aerospace list-workspaces --focused --json | jq -r '.[0].workspace')
+APP_NAME=$(aerospace list-windows --focused --json | jq -r '.[0]."app-name"')
 
-if [ "$SENDER" = "front_app_switched" ]; then
-  sketchybar --set "$NAME" label="$INFO"
+# If no app is focused (empty workspace), default to Finder
+if [ -z "$APP_NAME" ] || [ "$APP_NAME" = "null" ]; then
+    APP_NAME="Finder"
 fi
+
+# Format: workspace - application name
+if [ -n "$WORKSPACE" ] && [ "$WORKSPACE" != "null" ]; then
+    LABEL="$WORKSPACE - $APP_NAME"
+else
+    LABEL="$APP_NAME"
+fi
+
+sketchybar --set "$NAME" label="$LABEL"

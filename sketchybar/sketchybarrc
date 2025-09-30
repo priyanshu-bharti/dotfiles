@@ -1,91 +1,174 @@
-# SketchyBar Config - Full Working Version
+#!/bin/bash
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000 margin=12 y_offset=12 corner_radius=32
+sketchybar --bar position=top height=42 blur_radius=30 color=0xAA0F0D1C margin=16 y_offset=16 corner_radius=10 font_smoothing=true border_width=2 border_color=0xFF828BBA padding_left=8 padding_right=8
 
-##### Changing Defaults #####
+##### Default Item Settings #####
 default=(
-  padding_left=5
-  padding_right=5
-  icon.font="CaskaydiaCove Nerd Font:Bold:17.0"
-  label.font="CaskaydiaCove Nerd Font:Bold:14.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  icon.padding_left=4
-  icon.padding_right=4
-  label.padding_left=4
-  label.padding_right=4
+    icon.font="CaskaydiaCove Nerd Font:Bold:16.0"
+    label.font="CaskaydiaCove Nerd Font:Bold:14.0"
+    icon.color=0xFFc0caf5
+    label.color=0xFFc0caf5
 )
 sketchybar --default "${default[@]}"
 
-##### Mission Control Space Indicators #####
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-for i in "${!SPACE_ICONS[@]}"
-do
-  sid="$(($i+1))"
-  space=(
-    space="$sid"
-    icon="${SPACE_ICONS[i]}"
-    icon.padding_left=7
-    icon.padding_right=7
-    background.color=0x40ffffff
-    background.corner_radius=5
-    background.height=25
-    label.drawing=off
-    script="$PLUGIN_DIR/space.sh"
-    click_script="yabai -m space --focus $sid"
-  )
-  sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
+######################
+##### Left Items #####
+######################
+
+##### Events #####
+sketchybar --add event aerospace_workspace_change
+
+##### Aerospace Workspaces #####
+ALL_WORKSPACES=("1" "2" "3" "4" "5" "6" "7" "8")
+
+for workspace_num in "${ALL_WORKSPACES[@]}"; do
+    space=(
+        label="${workspace_num}"
+        label.padding_left=4
+        label.padding_right=4
+        background.color=0x77444A75
+        background.corner_radius=5
+        background.height=24
+        background.padding_right=4
+        background.padding_left=4
+        script="$PLUGIN_DIR/aerospace.sh"
+        click_script="aerospace workspace ${workspace_num}"
+    )
+    sketchybar --add item space."${workspace_num}" left \
+        --set space."${workspace_num}" "${space[@]}" \
+        --subscribe space."${workspace_num}" aerospace_workspace_change
 done
 
-##### Left Items #####
-sketchybar --add item chevron left \
-           --set chevron icon= label.drawing=off \
-           --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-           --subscribe front_app front_app_switched
+# Initialize: Hide workspaces not on current monitor
+# This will be handled by the aerospace.sh script on first run
+sketchybar --trigger aerospace_workspace_change
 
-##### Center Items #####
+# Focused Application Name
+sketchybar --add item front_app left \
+    --set front_app \
+    icon.drawing=off \
+    background.drawing=true \
+    background.color=0xFF7AA2f7 \
+    background.height=24 \
+    background.corner_radius=32 \
+    background.padding_left=12 \
+    background.padding_right=12 \
+    label.color=0xFF25273A \
+    label.padding_left=8 \
+    label.padding_right=8 \
+    padding_right=12 \
+    script="$PLUGIN_DIR/front_app.sh" \
+    --subscribe front_app front_app_switched aerospace_workspace_change
 
-# Calendar icon
-sketchybar --add item calendar_icon center \
-           --set calendar_icon icon= label.drawing=off \
-           --subscribe calendar_icon mouse.clicked \
-           --click_script="open -a Calendar"
-
-# Date text next to calendar
-sketchybar --add item date center \
-           --set date update_freq=10 icon.drawing=off script="$PLUGIN_DIR/date.sh"
-
-# Clock icon
-sketchybar --add item clock_icon center \
-           --set clock_icon icon= label.drawing=off
-
-# Time text next to clock
-sketchybar --add item time center \
-           --set time update_freq=10 icon.drawing=off script="$PLUGIN_DIR/time.sh"
-
+#######################
 ##### Right Items #####
+#######################
 
-# System info Battery, sound
+# Calendar (Tokyo Night Cyan - #7dcfff)
+sketchybar --add item calendar right \
+    --set calendar \
+    icon="" \
+    icon.color=0xFF1A1B26 \
+    label.color=0xFF1A1B26 \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=8 \
+    padding_right=12 \
+    background.drawing=true \
+    background.color=0xFF7dcfff \
+    background.corner_radius=20 \
+    background.height=24 \
+    script="$PLUGIN_DIR/date.sh" \
+    update_freq=10
+
+# Clock (Tokyo Night Green - #9ece6a)
+sketchybar --add item clock right \
+    --set clock \
+    icon="" \
+    icon.color=0xFF1A1B26 \
+    label.color=0xFF1A1B26 \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=8 \
+    padding_right=8 \
+    background.drawing=true \
+    background.color=0xFF9ece6a \
+    background.corner_radius=20 \
+    background.height=24 \
+    script="$PLUGIN_DIR/time.sh" \
+    update_freq=10
+
+# Battery
+sketchybar --add item battery right \
+    --set battery \
+    update_freq=120 \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=8 \
+    padding_right=8 \
+    background.drawing=true \
+    background.height=24 \
+    background.corner_radius=32 \
+    background.padding_left=12 \
+    background.padding_right=12 \
+    icon.color=0xFF25273A \
+    label.color=0xFF25273A \
+    background.color=0xFFBB9AF7 \
+    script="$PLUGIN_DIR/battery.sh" \
+    --subscribe battery system_woke power_source_change
+
+# Volume
 sketchybar --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume volume_change \
-           --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+    --set volume \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=8 \
+    padding_right=8 \
+    background.drawing=true \
+    background.height=24 \
+    background.corner_radius=32 \
+    background.padding_left=12 \
+    background.padding_right=12 \
+    icon.color=0xFF25273A \
+    label.color=0xFF25273A \
+    background.color=0xFFFFC76E \
+    script="$PLUGIN_DIR/volume.sh" \
+    --subscribe volume volume_change
 
-# Media item (Apple Music + Browser)
+# Media (Apple Music)
 sketchybar --add item media right \
-           --set media icon="" label="Not Playing" \
-                 icon.font="CaskaydiaCove Nerd Font:Bold:17.0" \
-                 icon.padding_right=6 \
-                 label.max_width=300 \
-                 click_script="open -a Music" \
-                 script="$PLUGIN_DIR/media.sh"
+    --set media \
+    icon="󰎇" \
+    label="Not Playing" \
+    icon.font="CaskaydiaCove Nerd Font:Bold:17.0" \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    label.max_width=30 \
+    padding_left=12 \
+    padding_right=8 \
+    click_script="open -a Music" \
+    background.drawing=true \
+    background.height=24 \
+    background.corner_radius=32 \
+    background.padding_left=12 \
+    background.padding_right=12 \
+    icon.color=0xFF25273A \
+    label.color=0xFF25273A \
+    background.color=0xFFFF747E \
+    script="$PLUGIN_DIR/media.sh"
 
-##### Force all scripts to run the first time #####
+##### Force all scripts to run once #####
 sketchybar --update
-
