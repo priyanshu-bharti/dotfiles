@@ -2,8 +2,14 @@
 return {
 	{ "nvim-java/nvim-java" },
 	{ "mfussenegger/nvim-jdtls" },
-	{ "sphamba/smear-cursor.nvim", opts = {} },
-	{ "karb94/neoscroll.nvim", opts = {} },
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {
+			stiffness = 0.5,
+			trailing_stiffness = 0.49,
+			never_draw_over_target = false,
+		},
+	},
 	{
 		"nvzone/typr",
 		dependencies = "nvzone/volt",

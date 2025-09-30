@@ -17,6 +17,7 @@ local plugins = {
 	require("plugins.modules.tmux_navigator"), -- TMUX navigation with VIM
 	require("plugins.modules.cheatsheet"), -- Cheatsheet for viewing all keymaps
 	require("plugins.modules.noice"), -- Better UI for messages, cmdline and popups
+	require("plugins.modules.smooth_scroll"), -- Smooth Scrolling
 	require("plugins.modules.misc"), -- Miscellaneous small plugins
 }
 

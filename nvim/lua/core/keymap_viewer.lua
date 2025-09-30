@@ -30,6 +30,8 @@ M.keymaps = {
 			{ key = "<leader>xx", desc = "Close buffer" },
 			{ key = "<leader>nn", desc = "New buffer" },
 			{ key = "\\", desc = "Toggle file explorer" },
+			{ key = "<leader>e", desc = "Right file explorer" },
+			{ key = "<leader>w", desc = "Float file explorer" },
 		},
 	},
 	{
