@@ -67,26 +67,7 @@ sketchybar --add item front_app left \
 ##### Right Items #####
 #######################
 
-# Calendar (Tokyo Night Cyan - #7dcfff)
-sketchybar --add item calendar right \
-    --set calendar \
-    icon="" \
-    icon.color=0xFF1A1B26 \
-    label.color=0xFF1A1B26 \
-    icon.padding_left=8 \
-    icon.padding_right=4 \
-    label.padding_left=4 \
-    label.padding_right=8 \
-    padding_left=8 \
-    padding_right=12 \
-    background.drawing=true \
-    background.color=0xFF7dcfff \
-    background.corner_radius=20 \
-    background.height=24 \
-    script="$PLUGIN_DIR/date.sh" \
-    update_freq=10
-
-# Clock (Tokyo Night Green - #9ece6a)
+# Clock
 sketchybar --add item clock right \
     --set clock \
     icon="" \
@@ -105,6 +86,25 @@ sketchybar --add item clock right \
     script="$PLUGIN_DIR/time.sh" \
     update_freq=10
 
+# Calendar
+sketchybar --add item calendar right \
+    --set calendar \
+    icon="" \
+    icon.color=0xFF1A1B26 \
+    label.color=0xFF1A1B26 \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=8 \
+    padding_right=8 \
+    background.drawing=true \
+    background.color=0xFF7dcfff \
+    background.corner_radius=20 \
+    background.height=24 \
+    script="$PLUGIN_DIR/date.sh" \
+    update_freq=10
+
 # Battery
 sketchybar --add item battery right \
     --set battery \
@@ -118,8 +118,8 @@ sketchybar --add item battery right \
     background.drawing=true \
     background.height=24 \
     background.corner_radius=32 \
-    background.padding_left=12 \
-    background.padding_right=12 \
+    background.padding_left=8 \
+    background.padding_right=8 \
     icon.color=0xFF25273A \
     label.color=0xFF25273A \
     background.color=0xFFBB9AF7 \
@@ -138,8 +138,8 @@ sketchybar --add item volume right \
     background.drawing=true \
     background.height=24 \
     background.corner_radius=32 \
-    background.padding_left=12 \
-    background.padding_right=12 \
+    background.padding_left=8 \
+    background.padding_right=8 \
     icon.color=0xFF25273A \
     label.color=0xFF25273A \
     background.color=0xFFFFC76E \
@@ -163,8 +163,8 @@ sketchybar --add item media right \
     background.drawing=true \
     background.height=24 \
     background.corner_radius=32 \
-    background.padding_left=12 \
-    background.padding_right=12 \
+    background.padding_left=8 \
+    background.padding_right=8 \
     icon.color=0xFF25273A \
     label.color=0xFF25273A \
     background.color=0xFFFF747E \

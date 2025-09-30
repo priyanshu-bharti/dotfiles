@@ -1,13 +1,9 @@
 -- Standalone plugins with less than 10 lines of config go here
 return {
-	{
-		"sphamba/smear-cursor.nvim",
-		opts = {},
-	},
-	{
-		"karb94/neoscroll.nvim",
-		opts = {},
-	},
+	{ "nvim-java/nvim-java" },
+	{ "mfussenegger/nvim-jdtls" },
+	{ "sphamba/smear-cursor.nvim", opts = {} },
+	{ "karb94/neoscroll.nvim", opts = {} },
 	{
 		"nvzone/typr",
 		dependencies = "nvzone/volt",
@@ -24,22 +20,10 @@ return {
 			})
 		end,
 	},
-	{
-		-- autoclose tags
-		"windwp/nvim-ts-autotag",
-	},
-	{
-		-- detect tabstop and shiftwidth automatically
-		"tpope/vim-sleuth",
-	},
-	{
-		-- Powerful Git integration for Vim
-		"tpope/vim-fugitive",
-	},
-	{
-		-- GitHub integration for vim-fugitive
-		"tpope/vim-rhubarb",
-	},
+	{ "windwp/nvim-ts-autotag" },
+	{ "tpope/vim-sleuth" },
+	{ "tpope/vim-fugitive" },
+	{ "tpope/vim-rhubarb" },
 	{
 		-- Hints keybinds
 		"folke/which-key.nvim",
