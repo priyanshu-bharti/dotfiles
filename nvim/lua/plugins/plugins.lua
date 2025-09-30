@@ -15,6 +15,8 @@ local plugins = {
 	require("plugins.modules.database"), -- Database UI
 	require("plugins.modules.indent_guides"), -- Indent Guides
 	require("plugins.modules.tmux_navigator"), -- TMUX navigation with VIM
+	require("plugins.modules.cheatsheet"), -- Cheatsheet for viewing all keymaps
+	require("plugins.modules.noice"), -- Better UI for messages, cmdline and popups
 	require("plugins.modules.misc"), -- Miscellaneous small plugins
 }
 

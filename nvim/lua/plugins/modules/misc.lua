@@ -27,21 +27,22 @@ return {
 	{
 		-- Hints keybinds
 		"folke/which-key.nvim",
-		opts = {
-			delay = 3000,
-			-- win = {
-			--   border = {
-			--     { '┌', 'FloatBorder' },
-			--     { '─', 'FloatBorder' },
-			--     { '┐', 'FloatBorder' },
-			--     { '│', 'FloatBorder' },
-			--     { '┘', 'FloatBorder' },
-			--     { '─', 'FloatBorder' },
-			--     { '└', 'FloatBorder' },
-			--     { '│', 'FloatBorder' },
-			--   },
-			-- },
-		},
+		event = "VeryLazy",
+		config = function()
+			local wk = require("which-key")
+			wk.setup({
+				delay = 1500, -- delay before which-key opens (in milliseconds)
+				icons = {
+					breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+					separator = "➜", -- symbol used between a key and it's label
+					group = "+", -- symbol prepended to a group
+				},
+				win = {
+					border = "rounded", -- none, single, double, shadow, rounded
+					padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
+				},
+			})
+		end,
 	},
 	{
 		-- Autoclose parentheses, brackets, quotes, etc.

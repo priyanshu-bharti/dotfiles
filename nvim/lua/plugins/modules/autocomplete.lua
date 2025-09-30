@@ -35,32 +35,23 @@ return { -- Autocompletion
 	--- @type blink.cmp.Config
 	opts = {
 		keymap = {
-			i = {
-				-- Accept with Enter
-				["<CR>"] = function(cmp)
-					-- If the completion menu is visible or ghost text is visible, accept it.
-					if cmp.is_visible() or cmp.is_ghost_text_visible() then
-						return cmp.accept()
-					end
-					-- Otherwise, insert a regular newline (fallback to default <CR> behavior).
-					return vim.api.nvim_feedkeys("<CR>", "n", true)
-				end,
-				-- Navigate next / previous
-				["<C-n>"] = "select_next", -- Changed from { 'select_next', 'fallback' }
-				["<Down>"] = "select_next", -- Changed from { 'select_next', 'fallback' }
-				["<C-p>"] = "select_prev", -- Changed from { 'select_prev', 'fallback' }
-				["<Up>"] = "select_prev", -- Changed from { 'select_prev', 'fallback' }
+			preset = "default",
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide" },
+			["<C-y>"] = { "select_and_accept" },
 
-				-- Hide menu
-				["<C-e>"] = "hide", -- Changed from { 'hide', 'fallback' }
+			["<C-p>"] = { "select_prev", "fallback" },
+			["<C-n>"] = { "select_next", "fallback" },
 
-				-- Toggle menu
-				["<C-Space>"] = "toggle", -- Changed from { 'toggle', 'fallback' }
+			["<C-u>"] = { "scroll_documentation_up", "fallback" },
+			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 
-				-- If you want snippet navigation too:
-				["<Tab>"] = "snippet_forward", -- Changed from { 'snippet_forward', 'fallback' }
-				["<S-Tab>"] = "snippet_backward", -- Changed from { 'snippet_backward', 'fallback' }
-			},
+			-- Accept completion with Enter
+			["<CR>"] = { "accept", "fallback" },
+
+			-- Tab for snippet navigation
+			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
 		},
 		appearance = {
 			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
