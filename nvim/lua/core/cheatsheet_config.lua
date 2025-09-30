@@ -124,6 +124,10 @@ M.cheatsheets = {
 					{ keys = "<leader>D", desc = "Type definition" },
 					{ keys = "<leader>ds", desc = "Document symbols" },
 					{ keys = "<leader>ws", desc = "Workspace symbols" },
+					{ keys = "<leader>wa", desc = "Workspace add folder" },
+					{ keys = "<leader>wr", desc = "Workspace remove folder" },
+					{ keys = "<leader>wl", desc = "Workspace list folders" },
+					{ keys = "<leader>th", desc = "Toggle inlay hints" },
 				}
 			},
 			{
@@ -190,11 +194,14 @@ M.cheatsheets = {
 				}
 			},
 			{
-				name = "Session Management",
-				desc = "Save and restore sessions",
+				name = "Project & Session Management",
+				desc = "Save and restore project sessions",
 				cheats = {
-					{ keys = "<leader>ss", desc = "Save session" },
-					{ keys = "<leader>sl", desc = "Load session" },
+					{ keys = "<leader>pf", desc = "Find/search session" },
+					{ keys = "<leader>ps", desc = "Save current session" },
+					{ keys = "<leader>pa", desc = "Toggle autosave session" },
+					{ keys = "<leader>pd", desc = "Delete session (via picker)" },
+					{ keys = "<leader>pc", desc = "Copy session (via picker)" },
 				}
 			},
 			{
@@ -208,6 +215,39 @@ M.cheatsheets = {
 					{ keys = "<leader>km", desc = "Show keymap reference (NvChad-style)" },
 					{ keys = "<F1>", desc = "Show keymap reference" },
 					{ keys = "<leader>test", desc = "Test which-key functionality" },
+				}
+			},
+		}
+	},
+	{
+		name = "🚀 Session & Project Management",
+		desc = "Complete guide to auto-session and project management",
+		sections = {
+			{
+				name = "Session Operations",
+				cheats = {
+					{ keys = "<leader>pf", desc = "🔍 Find Session - Open session picker with telescope" },
+					{ keys = "<leader>ps", desc = "💾 Save Session - Save current session manually" },
+					{ keys = "<leader>pa", desc = "🔄 Toggle Autosave - Enable/disable automatic session saving" },
+				}
+			},
+			{
+				name = "Session Picker Actions",
+				desc = "Actions available within the session picker",
+				cheats = {
+					{ keys = "<leader>pd", desc = "🗑️  Delete Session - Delete selected session (in picker)" },
+					{ keys = "<leader>pc", desc = "📋 Copy Session - Copy selected session (in picker)" },
+					{ keys = "<Enter>", desc = "📂 Load Session - Load selected session" },
+					{ keys = "<Esc>", desc = "❌ Close Picker - Exit session picker" },
+				}
+			},
+			{
+				name = "Session Features",
+				cheats = {
+					{ keys = "Auto-restore", desc = "🏠 Sessions automatically restore when entering project directory" },
+					{ keys = "Auto-save", desc = "💾 Sessions automatically save when leaving Neovim" },
+					{ keys = "Git integration", desc = "🌿 Sessions are tied to git repositories when possible" },
+					{ keys = "Directory filtering", desc = "🚫 Certain directories (~/Downloads, etc.) are excluded" },
 				}
 			},
 		}

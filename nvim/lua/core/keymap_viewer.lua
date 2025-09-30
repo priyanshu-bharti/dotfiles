@@ -45,21 +45,6 @@ M.keymaps = {
 		},
 	},
 	{
-		title = "💻 Code & LSP",
-		keymaps = {
-			{ key = "gd", desc = "Go to definition" },
-			{ key = "gr", desc = "Go to references" },
-			{ key = "gI", desc = "Go to implementation" },
-			{ key = "gD", desc = "Go to declaration" },
-			{ key = "K", desc = "Hover documentation" },
-			{ key = "<leader>ca", desc = "Code action" },
-			{ key = "<leader>rn", desc = "Rename symbol" },
-			{ key = "<leader>D", desc = "Type definition" },
-			{ key = "<leader>ds", desc = "Document symbols" },
-			{ key = "<leader>ws", desc = "Workspace symbols" },
-		},
-	},
-	{
 		title = "⚠️ Diagnostics",
 		keymaps = {
 			{ key = "[d", desc = "Previous diagnostic" },
@@ -112,12 +97,36 @@ M.keymaps = {
 		},
 	},
 	{
+		title = "� Project & Sessions",
+		keymaps = {
+			{ key = "<leader>pf", desc = "Find/search session" },
+			{ key = "<leader>ps", desc = "Save current session" },
+			{ key = "<leader>pa", desc = "Toggle autosave session" },
+			{ key = "<leader>pd", desc = "Delete session (via picker)" },
+			{ key = "<leader>pc", desc = "Copy session (via picker)" },
+		},
+	},
+	{
+		title = "⚡ LSP & Code Navigation",
+		keymaps = {
+			{ key = "gd", desc = "Go to definition" },
+			{ key = "gr", desc = "Go to references" },
+			{ key = "gI", desc = "Go to implementation" },
+			{ key = "gD", desc = "Go to declaration" },
+			{ key = "<leader>D", desc = "Type definition" },
+			{ key = "K", desc = "Hover documentation" },
+			{ key = "<leader>ds", desc = "Document symbols" },
+			{ key = "<leader>ws", desc = "Workspace symbols" },
+			{ key = "<leader>rn", desc = "Rename symbol" },
+			{ key = "<leader>ca", desc = "Code action" },
+			{ key = "<leader>th", desc = "Toggle inlay hints" },
+		},
+	},
+	{
 		title = "🔧 Utilities",
 		keymaps = {
 			{ key = "<Esc>", desc = "Clear highlights" },
 			{ key = "<leader>bg", desc = "Toggle theme" },
-			{ key = "<leader>ss", desc = "Save session" },
-			{ key = "<leader>sl", desc = "Load session" },
 			{ key = "<leader>?", desc = "Cheatsheet" },
 			{ key = "<leader>km", desc = "Keymap reference" },
 		},
@@ -127,13 +136,13 @@ M.keymaps = {
 -- Create the popup display
 function M.show_keymaps()
 	local buf = vim.api.nvim_create_buf(false, true)
-	
+
 	-- Calculate window dimensions
 	local width = 100
 	local height = 30
 	local row = math.ceil((vim.o.lines - height) / 2)
 	local col = math.ceil((vim.o.columns - width) / 2)
-	
+
 	-- Window options
 	local opts = {
 		style = "minimal",
@@ -146,78 +155,81 @@ function M.show_keymaps()
 		title = " ⌨️  Keymap Reference ",
 		title_pos = "center",
 	}
-	
+
 	-- Create the window
 	local win = vim.api.nvim_open_win(buf, true, opts)
-	
+
 	-- Set buffer options
 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
 	vim.api.nvim_buf_set_option(buf, "readonly", false)
-	
+
 	-- Generate content
 	local lines = {}
-	
+
 	-- Add header
 	table.insert(lines, "")
 	table.insert(lines, "🚀 Neovim Keymap Reference - Press 'q' to close")
 	table.insert(lines, string.rep("─", width - 4))
 	table.insert(lines, "")
-	
+
 	-- Add each category
 	for _, category in ipairs(M.keymaps) do
 		-- Category header
-		table.insert(lines, "┌─ " .. category.title .. " " .. string.rep("─", width - 8 - vim.fn.strwidth(category.title)))
-		
+		table.insert(
+			lines,
+			"┌─ " .. category.title .. " " .. string.rep("─", width - 8 - vim.fn.strwidth(category.title))
+		)
+
 		-- Add keymaps in two columns
 		for i = 1, #category.keymaps, 2 do
 			local left_keymap = category.keymaps[i]
 			local right_keymap = category.keymaps[i + 1]
-			
+
 			local left_part = ""
 			if left_keymap then
 				left_part = string.format("│ %-18s %s", left_keymap.key, left_keymap.desc)
 			end
-			
+
 			local right_part = ""
 			if right_keymap then
 				right_part = string.format("%-18s %s", right_keymap.key, right_keymap.desc)
 			end
-			
+
 			-- Calculate padding
 			local left_len = vim.fn.strwidth(left_part)
 			local mid_col = math.floor(width / 2)
 			local padding = string.rep(" ", math.max(1, mid_col - left_len))
-			
+
 			local line = left_part .. padding .. right_part
 			-- Ensure line doesn't exceed width
 			if vim.fn.strwidth(line) > width - 2 then
 				line = string.sub(line, 1, width - 5) .. "..."
 			end
-			
+
 			table.insert(lines, line)
 		end
-		
+
 		table.insert(lines, "")
 	end
-	
+
 	-- Add footer
 	table.insert(lines, string.rep("─", width - 4))
 	table.insert(lines, "Press 'q' or <Esc> to close")
 	table.insert(lines, "")
-	
+
 	-- Set buffer content
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 	vim.api.nvim_buf_set_option(buf, "readonly", true)
-	
+
 	-- Set buffer keymaps to close
 	local close_popup = function()
 		vim.api.nvim_win_close(win, true)
 	end
-	
+
 	vim.keymap.set("n", "q", close_popup, { buffer = buf, nowait = true })
 	vim.keymap.set("n", "<Esc>", close_popup, { buffer = buf, nowait = true })
-	
+
 	-- Set highlight groups for better appearance
 	vim.api.nvim_win_set_option(win, "winhl", "Normal:Normal,FloatBorder:FloatBorder")
 end

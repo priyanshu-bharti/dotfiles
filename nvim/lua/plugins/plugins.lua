@@ -18,6 +18,7 @@ local plugins = {
 	require("plugins.modules.cheatsheet"), -- Cheatsheet for viewing all keymaps
 	require("plugins.modules.noice"), -- Better UI for messages, cmdline and popups
 	require("plugins.modules.smooth_scroll"), -- Smooth Scrolling
+	require("plugins.modules.auto_session"), -- Autosave Sessions based on dirs
 	require("plugins.modules.misc"), -- Miscellaneous small plugins
 }
 

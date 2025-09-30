@@ -3,7 +3,19 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=42 blur_radius=30 color=0xAA0F0D1C margin=16 y_offset=16 corner_radius=10 font_smoothing=true border_width=2 border_color=0xFF828BBA padding_left=8 padding_right=8
+sketchybar --bar \
+    position=top \
+    height=42 \
+    blur_radius=30 \
+    color=0xAA0F0D1C \
+    margin=24 \
+    y_offset=16 \
+    corner_radius=10 \
+    font_smoothing=true \
+    border_width=2 \
+    border_color=0xFF828BBA \
+    padding_left=8 \
+    padding_right=8
 
 ##### Default Item Settings #####
 default=(

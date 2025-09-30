@@ -36,6 +36,8 @@ return {
 			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 			-- Create a function that lets us more easily define mappings specific LSP related items.
 			-- It sets the mode, buffer and description for us each time.
+			-- NOTE: These keymaps are also documented in lua/core/keymaps.lua for reference,
+			-- but the actual buffer-local mappings are set here when LSP attaches.
 			callback = function(event)
 				local map = function(keys, func, desc)
 					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -82,11 +84,11 @@ return {
 				--  For example, in C this would take you to the header
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-				map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-				map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-				map("<leader>wl", function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, "[W]orkspace [L]ist Folders")
+				-- map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+				-- map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+				-- map("<leader>wl", function()
+				-- 	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+				-- end, "[W]orkspace [L]ist Folders")
 
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.

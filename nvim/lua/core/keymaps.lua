@@ -7,7 +7,12 @@ local opts = { noremap = true, silent = true }
 
 -- Allow moving the cursor through wrapped lines with j, k
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Move up (wrapped lines)" })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Move down (wrapped lines)" })
+vim.keymap.set(
+	"n",
+	"j",
+	"v:count == 0 ? 'gj' : 'j'",
+	{ expr = true, silent = true, desc = "Move down (wrapped lines)" }
+)
 
 -- clear highlights
 vim.keymap.set("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true, desc = "Clear search highlights" })
@@ -91,29 +96,120 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		end, { desc = "Fuzzily search in current buffer" })
 
 		-- Comment keymaps
-		vim.keymap.set("n", "<C-_>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("n", "<C-c>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("n", "<C-/>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-_>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-c>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-/>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-_>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-c>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-/>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set(
+			"v",
+			"<C-_>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
+		vim.keymap.set(
+			"v",
+			"<C-c>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
+		vim.keymap.set(
+			"v",
+			"<C-/>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
+
+		-- Session management keymaps
+		vim.keymap.set("n", "<leader>pf", "<cmd>AutoSession search<CR>", { desc = "Project find session" })
+		vim.keymap.set("n", "<leader>ps", "<cmd>AutoSession save<CR>", { desc = "Project save session" })
+		vim.keymap.set("n", "<leader>pa", "<cmd>AutoSession toggle<CR>", { desc = "Project autosave toggle" })
+		vim.keymap.set("n", "<leader>pd", function()
+			-- This will be available in the telescope picker
+			vim.notify("Use <leader>pf to open session picker, then use <leader>pd to delete", vim.log.levels.INFO)
+		end, { desc = "Project delete session (via picker)" })
+		vim.keymap.set("n", "<leader>pc", function()
+			-- This will be available in the telescope picker
+			vim.notify("Use <leader>pf to open session picker, then use <leader>pc to copy", vim.log.levels.INFO)
+		end, { desc = "Project copy session (via picker)" })
+
+		-- LSP keymaps (moved from lsp.lua)
+		-- These are set up via LspAttach autocmd but we define them here for reference
+		-- Actual setup happens in the LSP config, but this helps with documentation
+		local function setup_lsp_keymaps()
+			-- Navigation
+			vim.keymap.set("n", "gd", function()
+				require("telescope.builtin").lsp_definitions()
+			end, { desc = "LSP: Goto definition" })
+			vim.keymap.set("n", "gr", function()
+				require("telescope.builtin").lsp_references()
+			end, { desc = "LSP: Goto references" })
+			vim.keymap.set("n", "gI", function()
+				require("telescope.builtin").lsp_implementations()
+			end, { desc = "LSP: Goto implementation" })
+			vim.keymap.set("n", "gD", function()
+				vim.lsp.buf.declaration()
+			end, { desc = "LSP: Goto declaration" })
+			vim.keymap.set("n", "<leader>D", function()
+				require("telescope.builtin").lsp_type_definitions()
+			end, { desc = "LSP: Type definition" })
+
+			-- Documentation and help
+			vim.keymap.set("n", "K", function()
+				vim.lsp.buf.hover()
+			end, { desc = "LSP: Hover documentation" })
+
+			-- Symbols and workspace
+			vim.keymap.set("n", "<leader>ds", function()
+				require("telescope.builtin").lsp_document_symbols()
+			end, { desc = "LSP: Document symbols" })
+			vim.keymap.set("n", "<leader>ws", function()
+				require("telescope.builtin").lsp_dynamic_workspace_symbols()
+			end, { desc = "LSP: Workspace symbols" })
+
+			-- Code actions and refactoring
+			vim.keymap.set("n", "<leader>rn", function()
+				vim.lsp.buf.rename()
+			end, { desc = "LSP: Rename symbol" })
+			vim.keymap.set("n", "<leader>ca", function()
+				vim.lsp.buf.code_action()
+			end, { desc = "LSP: Code action" })
+
+			-- Workspace management
+			-- vim.keymap.set("n", "<leader>wa", function() vim.lsp.buf.add_workspace_folder() end, { desc = "LSP: Workspace add folder" })
+			-- vim.keymap.set("n", "<leader>wr", function() vim.lsp.buf.remove_workspace_folder() end, { desc = "LSP: Workspace remove folder" })
+			-- vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = "LSP: Workspace list folders" })
+
+			-- Toggle features
+			vim.keymap.set("n", "<leader>th", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
+			end, { desc = "LSP: Toggle inlay hints" })
+		end
+
+		-- Note: LSP keymaps are actually set in the LspAttach autocmd for buffer-local mapping
 
 		-- Setup which-key groups
 		local wk = require("which-key")
-		
+
 		-- Register key groups
 		wk.add({
 			{ "<leader>s", group = "Search" },
 			{ "<leader>g", group = "Git" },
-			{ "<leader>t", group = "Tabs" },
+			{ "<leader>t", group = "Tabs/Toggle" },
 			{ "<leader>x", group = "Close/Exit" },
 			{ "<leader>w", group = "Workspace" },
 			{ "<leader>c", group = "Code" },
-			{ "<leader>d", group = "Diagnostics" },
-			{ "<leader>r", group = "Rename" },
+			{ "<leader>d", group = "Diagnostics/Definition" },
+			{ "<leader>r", group = "Rename/Refactor" },
 			{ "<leader>l", group = "Line" },
 			{ "<leader>n", group = "New" },
 			{ "<leader>b", group = "Background/Buffer" },
+			{ "<leader>p", group = "Project/Session" },
+			{ "<leader>th", desc = "Toggle inlay hints" },
 		})
 	end,
 })
@@ -121,12 +217,33 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- Comment keymaps (wrapped in a function to ensure Comment is loaded)
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
-		vim.keymap.set("n", "<C-_>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("n", "<C-c>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("n", "<C-/>", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-_>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-c>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
-		vim.keymap.set("v", "<C-/>", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-_>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-c>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set("n", "<C-/>", function()
+			require("Comment.api").toggle.linewise.current()
+		end, { desc = "Toggle line comment" })
+		vim.keymap.set(
+			"v",
+			"<C-_>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
+		vim.keymap.set(
+			"v",
+			"<C-c>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
+		vim.keymap.set(
+			"v",
+			"<C-/>",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+			{ desc = "Toggle line comment" }
+		)
 	end,
 })
 
@@ -160,8 +277,18 @@ vim.keymap.set("n", "<C-i>", "<C-i>", { noremap = true, silent = true, desc = "J
 -- Resizing Windows
 vim.keymap.set("n", "<Up>", ":resize -2<CR>", { noremap = true, silent = true, desc = "Decrease window height" })
 vim.keymap.set("n", "<Down>", ":resize +2<CR>", { noremap = true, silent = true, desc = "Increase window height" })
-vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", { noremap = true, silent = true, desc = "Decrease window width" })
-vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", { noremap = true, silent = true, desc = "Increase window width" })
+vim.keymap.set(
+	"n",
+	"<Left>",
+	":vertical resize -2<CR>",
+	{ noremap = true, silent = true, desc = "Decrease window width" }
+)
+vim.keymap.set(
+	"n",
+	"<Right>",
+	":vertical resize +2<CR>",
+	{ noremap = true, silent = true, desc = "Increase window width" }
+)
 
 -- Window management
 vim.keymap.set("n", "<leader>v", "<C-w>v", { noremap = true, silent = true, desc = "Split window vertically" })
@@ -192,7 +319,12 @@ vim.keymap.set("n", "<M-k>", ":m .-2<CR>==", { noremap = true, silent = true, de
 
 -- Neotree
 vim.keymap.set("n", "\\", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle file explorer" })
-vim.keymap.set("n", "<leader>bg", "<cmd>lua toggle_bg()<CR>", { noremap = true, silent = true, desc = "Toggle background theme" })
+vim.keymap.set(
+	"n",
+	"<leader>bg",
+	"<cmd>lua toggle_bg()<CR>",
+	{ noremap = true, silent = true, desc = "Toggle background theme" }
+)
 
 -- Cheatsheet
 vim.keymap.set("n", "<leader>?", ":Cheatsheet<CR>", { noremap = true, silent = true, desc = "Open cheatsheet" })
@@ -233,14 +365,19 @@ vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagn
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Save and load session
-vim.keymap.set("n", "<leader>ss", ":mksession! .session.vim<CR>", { noremap = true, silent = false, desc = "Save session" })
+vim.keymap.set(
+	"n",
+	"<leader>ss",
+	":mksession! .session.vim<CR>",
+	{ noremap = true, silent = false, desc = "Save session" }
+)
 vim.keymap.set("n", "<leader>sl", ":source .session.vim<CR>", { noremap = true, silent = false, desc = "Load session" })
 
 -- Setup which-key groups
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		local wk = require("which-key")
-		
+
 		-- Register key groups with simpler approach
 		wk.add({
 			{ "<leader>s", group = "Search" },
@@ -260,7 +397,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			{ "<leader>ai", group = "AI Operations" },
 			{ "<leader>aid", group = "AI Diagnostics" },
 		})
-		
+
 		-- Add a test keymap to verify which-key is working
 		vim.keymap.set("n", "<leader>test", function()
 			print("Which-key test successful!")
