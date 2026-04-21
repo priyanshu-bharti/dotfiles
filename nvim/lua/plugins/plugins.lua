@@ -19,6 +19,7 @@ local plugins = {
 	require("plugins.modules.noice"), -- Better UI for messages, cmdline and popups
 	require("plugins.modules.smooth_scroll"), -- Smooth Scrolling
 	require("plugins.modules.auto_session"), -- Autosave Sessions based on dirs
+	require("plugins.modules.flutter"), -- Flutter development tools
 	require("plugins.modules.misc"), -- Miscellaneous small plugins
 }
 

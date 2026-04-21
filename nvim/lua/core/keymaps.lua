@@ -373,6 +373,15 @@ vim.keymap.set(
 )
 vim.keymap.set("n", "<leader>sl", ":source .session.vim<CR>", { noremap = true, silent = false, desc = "Load session" })
 
+-- Format code
+vim.keymap.set("n", "<leader>fm", function()
+	vim.lsp.buf.format({ async = true })
+end, { desc = "Format buffer" })
+
+vim.keymap.set("v", "<leader>fm", function()
+	vim.lsp.buf.format({ async = true })
+end, { desc = "Format selection" })
+
 -- Setup which-key groups
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()

@@ -1,0 +1,75 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "tab_bar": {
+        "show": false
+    },
+    "agent": {
+        "default_model": {
+            "provider": "copilot_chat",
+            "model": "claude-sonnet-4.5"
+        },
+        "model_parameters": []
+    },
+    "show_edit_predictions": false,
+    "current_line_highlight": "gutter",
+    "use_system_window_tabs": false,
+    "inlay_hints": {
+        "show_parameter_hints": true
+    },
+    "show_whitespaces": "all",
+    "tab_size": 4,
+    "gutter": {
+        "runnables": false
+    },
+    "ui_font_family": "Cascadia Code NF",
+    "buffer_font_family": "Cascadia Code NF",
+    "icon_theme": "Symbols Icon Theme",
+    "tabs": {
+        "file_icons": true
+    },
+    "title_bar": {
+        "show_sign_in": false,
+        "show_onboarding_banner": false,
+        "show_branch_name": false,
+        "show_project_items": false,
+        "show_user_picture": false
+    },
+    "toolbar": {
+        "quick_actions": false,
+        "breadcrumbs": false
+    },
+    "relative_line_numbers": "enabled",
+    "vim_mode": true,
+    "project_panel": {
+        "sticky_scroll": false,
+        "auto_fold_dirs": true,
+        "button": true,
+        "dock": "right"
+    },
+    "ui_font_size": 14.0,
+    "buffer_font_size": 14.0,
+    "theme": {
+        "mode": "system",
+        "light": "One Light",
+        "dark": "Catppuccin Mocha (Blur) [Heavy]"
+    },
+    "terminal": {
+        "line_height": {
+            "custom": 1.2
+        },
+        "font_family": "CaskaydiaCove Nerd Font",
+        "default_height": 300,
+        "font_features": {
+            "calt": true
+        }
+    },
+    "private_files": [".env"],
+    "vertical_scroll_margin": 10
+}

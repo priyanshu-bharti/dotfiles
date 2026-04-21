@@ -28,6 +28,7 @@ vim.o.cursorline = false -- highlight the current line
 vim.o.splitbelow = true -- force all horizontal splits to go below current window
 vim.o.splitright = true -- force all vertical splits to go to the right of current window
 vim.o.swapfile = false -- creates a swapfile
+vim.o.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,o:hor50-Cursor/lCursor,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor" -- enable blinking cursor
 vim.o.smartindent = true -- make indenting smarter again
 vim.o.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.o.showtabline = 1 -- show if there are at least two tabs
