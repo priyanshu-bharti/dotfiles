@@ -144,7 +144,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		vim.keymap.set("n", "<leader>tt", terminal.toggle_size, { desc = "Toggle terminal size" })
 		vim.keymap.set("n", "<leader>tk", terminal.kill_current, { desc = "Kill current terminal" })
 		vim.keymap.set("n", "<leader>tc", terminal.close_without_killing, { desc = "Close terminal window" })
-		vim.keymap.set("n", "<leader>th", terminal.toggle_hide, { desc = "Toggle hidden terminal pane" })
+		vim.keymap.set("n", "<leader>ht", terminal.toggle_hide, { desc = "Toggle hidden terminal pane" })
 
 		-- LSP keymaps (moved from lsp.lua)
 		-- These are set up via LspAttach autocmd but we define them here for reference

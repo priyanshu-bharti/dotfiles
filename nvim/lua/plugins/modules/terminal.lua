@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 local function term_height(mode)
 	if mode == "full" then
-		return math.max(vim.o.lines - 2, 1)
+		return math.max(vim.o.lines - vim.o.cmdheight - 2, 1)
 	end
 
 	return 10
@@ -45,8 +45,6 @@ local function focus_terminal_window()
 end
 
 local function create_terminal_window(mode)
-	local current_win = vim.api.nvim_get_current_win()
-
 	vim.cmd("botright split")
 	state.winid = vim.api.nvim_get_current_win()
 	vim.api.nvim_win_set_height(state.winid, term_height(mode))
@@ -64,7 +62,6 @@ local function create_terminal_window(mode)
 
 	vim.api.nvim_set_current_win(state.winid)
 	vim.cmd("startinsert")
-	vim.api.nvim_set_current_win(current_win)
 end
 
 local function ensure_terminal(mode)

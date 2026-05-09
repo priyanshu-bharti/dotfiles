@@ -127,7 +127,7 @@ M.cheatsheets = {
 					{ keys = "<leader>wa", desc = "Workspace add folder" },
 					{ keys = "<leader>wr", desc = "Workspace remove folder" },
 					{ keys = "<leader>wl", desc = "Workspace list folders" },
-					{ keys = "<leader>th", desc = "Toggle inlay hints" },
+					{ keys = "<leader>ti", desc = "Toggle inlay hints" },
 				}
 			},
 			{
@@ -179,7 +179,7 @@ M.cheatsheets = {
 					{ keys = "<leader>tt", desc = "Toggle terminal size" },
 					{ keys = "<leader>tk", desc = "Kill current terminal" },
 					{ keys = "<leader>tc", desc = "Close terminal window without killing" },
-					{ keys = "<leader>th", desc = "Hide or unhide terminal pane" },
+					{ keys = "<leader>ht", desc = "Hide or unhide terminal pane" },
 				}
 			},
 			{

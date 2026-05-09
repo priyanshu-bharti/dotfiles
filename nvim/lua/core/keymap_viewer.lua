@@ -83,7 +83,7 @@ M.keymaps = {
 			{ key = "<leader>tt", desc = "Toggle terminal size" },
 			{ key = "<leader>tk", desc = "Kill current terminal" },
 			{ key = "<leader>tc", desc = "Close terminal window" },
-			{ key = "<leader>th", desc = "Toggle hidden terminal pane" },
+			{ key = "<leader>ht", desc = "Toggle hidden terminal pane" },
 		},
 	},
 	{
