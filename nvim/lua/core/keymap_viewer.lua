@@ -75,6 +75,17 @@ M.keymaps = {
 		},
 	},
 	{
+		title = "🖥️ Terminal",
+		keymaps = {
+			{ key = "<leader>st", desc = "Open small terminal" },
+			{ key = "<leader>ft", desc = "Open full terminal" },
+			{ key = "<leader>tt", desc = "Toggle terminal size" },
+			{ key = "<leader>tk", desc = "Kill current terminal" },
+			{ key = "<leader>tc", desc = "Close terminal window" },
+			{ key = "<leader>th", desc = "Toggle hidden terminal pane" },
+		},
+	},
+	{
 		title = "📝 Text Editing",
 		keymaps = {
 			{ key = "<C-_>/<C-c>", desc = "Toggle comment" },
@@ -119,7 +130,7 @@ M.keymaps = {
 			{ key = "<leader>ws", desc = "Workspace symbols" },
 			{ key = "<leader>rn", desc = "Rename symbol" },
 			{ key = "<leader>ca", desc = "Code action" },
-			{ key = "<leader>th", desc = "Toggle inlay hints" },
+			{ key = "<leader>ti", desc = "Toggle inlay hints" },
 		},
 	},
 	{
