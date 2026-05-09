@@ -6,6 +6,19 @@ local state = {
 	last_size = "small",
 }
 
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "term://*",
+	callback = function(args)
+		-- Use Esc Esc to leave terminal-mode without interfering with single Esc.
+		vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", {
+			buffer = args.buf,
+			noremap = true,
+			silent = true,
+			desc = "Exit terminal mode",
+		})
+	end,
+})
+
 local function term_height(mode)
 	if mode == "full" then
 		return math.max(vim.o.lines - 2, 1)

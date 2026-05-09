@@ -77,6 +77,7 @@ M.keymaps = {
 	{
 		title = "🖥️ Terminal",
 		keymaps = {
+			{ key = "<Esc><Esc>", desc = "Exit terminal mode" },
 			{ key = "<leader>st", desc = "Open small terminal" },
 			{ key = "<leader>ft", desc = "Open full terminal" },
 			{ key = "<leader>tt", desc = "Toggle terminal size" },

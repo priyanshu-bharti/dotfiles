@@ -173,6 +173,7 @@ M.cheatsheets = {
 				name = "Terminal Management",
 				desc = "Terminal split shortcuts",
 				cheats = {
+					{ keys = "<Esc><Esc>", desc = "Exit terminal mode" },
 					{ keys = "<leader>st", desc = "Open small terminal at bottom" },
 					{ keys = "<leader>ft", desc = "Open fullscreen terminal" },
 					{ keys = "<leader>tt", desc = "Toggle terminal size" },
