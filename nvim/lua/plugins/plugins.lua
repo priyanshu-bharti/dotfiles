@@ -11,6 +11,7 @@ local plugins = {
 	require("plugins.modules.gitsigns"), -- Git status signs on lines
 	require("plugins.modules.homepage"), -- Display a welcome page
 	require("plugins.modules.agent"), -- Integrated AI agent
+	require("plugins.modules.copilot"), -- GitHub Copilot
 	require("plugins.modules.comments"), -- Comment utilities
 	require("plugins.modules.database"), -- Database UI
 	require("plugins.modules.indent_guides"), -- Indent Guides

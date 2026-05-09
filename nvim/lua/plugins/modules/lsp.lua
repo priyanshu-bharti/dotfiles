@@ -32,6 +32,13 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 	},
 	config = function()
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+		})
+
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 			-- Create a function that lets us more easily define mappings specific LSP related items.

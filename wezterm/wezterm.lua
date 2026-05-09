@@ -118,9 +118,38 @@ config.line_height = 1.5
 config.default_cursor_style = "BlinkingBlock"
 
 -- --------------------------------------------------
--- Keybindings (optional)
+-- Toggle Terminal
+-- --------------------------------------------------
+local has_toggle_terminal = false
+
+local function toggle_terminal(window, pane)
+	local tab = pane:tab()
+	local panes_list = tab:panes_with_info()
+
+	if has_toggle_terminal and #panes_list > 1 then
+		-- A toggle terminal exists, close the last pane
+		local last_pane = panes_list[#panes_list].pane
+		last_pane:kill()
+		has_toggle_terminal = false
+	else
+		-- Create new toggle terminal split
+		pane:split({
+			direction = "Bottom",
+			size = 0.35,
+		})
+		has_toggle_terminal = true
+	end
+end
+
+-- --------------------------------------------------
+-- Keybindings
 -- --------------------------------------------------
 config.keys = {
+	{
+		key = "j",
+		mods = "CMD",
+		action = wezterm.action_callback(toggle_terminal),
+	},
 	{
 		key = "|",
 		mods = "CMD|SHIFT",
@@ -188,6 +217,11 @@ config.keys = {
 		key = "RightArrow",
 		mods = "CMD|SHIFT",
 		action = wezterm.action.MoveTabRelative(1),
+	},
+	{
+		key = "T",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.TogglePaneZoomState,
 	},
 }
 -- config.disable_default_key_bindings = true

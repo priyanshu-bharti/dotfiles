@@ -19,7 +19,7 @@ return {
 
 		require("telescope").setup({
 			defaults = {
-				layout_strategy = "horizontal",
+				layout_strategy = "flex",
 				layout_config = {
 					horizontal = {
 						prompt_position = "bottom",
@@ -39,8 +39,21 @@ return {
 			},
 			pickers = {
 				find_files = {
-					file_ignore_patterns = { "node_modules", ".git", ".venv" },
+					file_ignore_patterns = {
+						"node_modules",
+						".git",
+						".venv",
+						"venv",
+						"__pycache__",
+						".pytest_cache",
+						".egg-info",
+						"dist",
+						"build",
+						".dart_tool",
+						".flutter",
+					},
 					hidden = true,
+					no_ignore = true,
 				},
 				buffers = {
 					initial_mode = "normal",

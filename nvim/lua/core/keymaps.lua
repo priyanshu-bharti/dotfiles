@@ -273,6 +273,15 @@ vim.keymap.set("n", "<leader>nn", "<cmd> enew <CR>", { noremap = true, silent = 
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "<C-i>", "<C-i>", { noremap = true, silent = true, desc = "Jump forward" })
+vim.keymap.set("n", "<leader>xa", ":bufdo Bdelete!<CR>", { noremap = true, silent = true, desc = "Close all buffers" })
+vim.keymap.set("n", "<leader>xo", function()
+	local current_buf = vim.fn.bufnr("%")
+	for _, buf in ipairs(vim.fn.getbufinfo()) do
+		if buf.bufnr ~= current_buf then
+			vim.cmd("bdelete! " .. buf.bufnr)
+		end
+	end
+end, { noremap = true, silent = true, desc = "Close all buffers except current" })
 
 -- Resizing Windows
 vim.keymap.set("n", "<Up>", ":resize -2<CR>", { noremap = true, silent = true, desc = "Decrease window height" })
@@ -393,6 +402,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			{ "<leader>g", group = "Git" },
 			{ "<leader>t", group = "Tabs" },
 			{ "<leader>x", group = "Close/Exit" },
+			{ "<leader>xx", desc = "Close buffer" },
+			{ "<leader>xa", desc = "Close all buffers" },
+			{ "<leader>xo", desc = "Close all except current" },
 			{ "<leader>w", group = "Workspace" },
 			{ "<leader>c", group = "Code" },
 			{ "<leader>d", group = "Diagnostics" },
