@@ -170,6 +170,18 @@ M.cheatsheets = {
 				}
 			},
 			{
+				name = "Terminal Management",
+				desc = "Terminal split shortcuts",
+				cheats = {
+					{ keys = "<leader>st", desc = "Open small terminal at bottom" },
+					{ keys = "<leader>ft", desc = "Open fullscreen terminal" },
+					{ keys = "<leader>tt", desc = "Toggle terminal size" },
+					{ keys = "<leader>tk", desc = "Kill current terminal" },
+					{ keys = "<leader>tc", desc = "Close terminal window without killing" },
+					{ keys = "<leader>th", desc = "Hide or unhide terminal pane" },
+				}
+			},
+			{
 				name = "AI Agent Operations",
 				desc = "Gemini AI assistant commands",
 				cheats = {

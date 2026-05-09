@@ -137,6 +137,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			vim.notify("Use <leader>pf to open session picker, then use <leader>pc to copy", vim.log.levels.INFO)
 		end, { desc = "Project copy session (via picker)" })
 
+		-- Terminal shortcuts
+		local terminal = require("plugins.modules.terminal")
+		vim.keymap.set("n", "<leader>st", terminal.open_small, { desc = "Open small terminal" })
+		vim.keymap.set("n", "<leader>ft", terminal.open_full, { desc = "Open full terminal" })
+		vim.keymap.set("n", "<leader>tt", terminal.toggle_size, { desc = "Toggle terminal size" })
+		vim.keymap.set("n", "<leader>tk", terminal.kill_current, { desc = "Kill current terminal" })
+		vim.keymap.set("n", "<leader>tc", terminal.close_without_killing, { desc = "Close terminal window" })
+		vim.keymap.set("n", "<leader>th", terminal.toggle_hide, { desc = "Toggle hidden terminal pane" })
+
 		-- LSP keymaps (moved from lsp.lua)
 		-- These are set up via LspAttach autocmd but we define them here for reference
 		-- Actual setup happens in the LSP config, but this helps with documentation
@@ -185,7 +194,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			-- vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { desc = "LSP: Workspace list folders" })
 
 			-- Toggle features
-			vim.keymap.set("n", "<leader>th", function()
+			vim.keymap.set("n", "<leader>ti", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
 			end, { desc = "LSP: Toggle inlay hints" })
 		end
@@ -199,7 +208,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		wk.add({
 			{ "<leader>s", group = "Search" },
 			{ "<leader>g", group = "Git" },
-			{ "<leader>t", group = "Tabs/Toggle" },
+			{ "<leader>t", group = "Tabs/Toggle/Terminal" },
 			{ "<leader>x", group = "Close/Exit" },
 			{ "<leader>w", group = "Workspace" },
 			{ "<leader>c", group = "Code" },
@@ -209,7 +218,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			{ "<leader>n", group = "New" },
 			{ "<leader>b", group = "Background/Buffer" },
 			{ "<leader>p", group = "Project/Session" },
-			{ "<leader>th", desc = "Toggle inlay hints" },
+			{ "<leader>ti", desc = "Toggle inlay hints" },
 		})
 	end,
 })
@@ -400,7 +409,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		wk.add({
 			{ "<leader>s", group = "Search" },
 			{ "<leader>g", group = "Git" },
-			{ "<leader>t", group = "Tabs" },
+			{ "<leader>t", group = "Tabs/Terminal" },
 			{ "<leader>x", group = "Close/Exit" },
 			{ "<leader>xx", desc = "Close buffer" },
 			{ "<leader>xa", desc = "Close all buffers" },
