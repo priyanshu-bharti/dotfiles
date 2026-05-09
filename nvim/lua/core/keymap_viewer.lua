@@ -180,7 +180,7 @@ function M.show_keymaps()
 
 	-- Add header
 	table.insert(lines, "")
-	table.insert(lines, "🚀 Neovim Keymap Reference - Press 'q' to close")
+	table.insert(lines, "🚀 Neovim Keymap Reference - Press '/' to search, 'q' to close")
 	table.insert(lines, string.rep("─", width - 4))
 	table.insert(lines, "")
 
@@ -239,6 +239,7 @@ function M.show_keymaps()
 		vim.api.nvim_win_close(win, true)
 	end
 
+	vim.keymap.set("n", "/", "/", { buffer = buf, nowait = true, desc = "Search keymaps" })
 	vim.keymap.set("n", "q", close_popup, { buffer = buf, nowait = true })
 	vim.keymap.set("n", "<Esc>", close_popup, { buffer = buf, nowait = true })
 

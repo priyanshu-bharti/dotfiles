@@ -24,7 +24,7 @@ local function term_height(mode)
 		return math.max(vim.o.lines - 2, 1)
 	end
 
-	return 15
+	return 10
 end
 
 local function is_valid_buf(bufnr)
